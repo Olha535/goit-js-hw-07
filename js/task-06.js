@@ -1,15 +1,19 @@
-const addInputEl = document.querySelector("#validation-input");
-const dataLengthEl = Number(addInputEl.getAttribute("data-length"));
-const inputValid = addInputEl.addEventListener("focus", onFormInput);
+const inputRef = document.querySelector("#validation-input");
 
-function onFormInput(event) {
-  const addInputValue = event.currentTarget.value;
-
-  if (addInputValue.length === dataLengthEl) {
-    addInputEl.classList.add("valid");
-    addInputEl.classList.remove("invalid");
+function onInputRefChange() {
+  if (inputRef.value.length >= inputRef.dataset.length) {
+    inputRef.classList.add("valid");
+    inputRef.classList.remove("invalid");
+  } else if (
+    inputRef.value.length >= 1 &&
+    inputRef.value.length < inputRef.dataset.length
+  ) {
+    inputRef.classList.add("invalid");
+    inputRef.classList.remove("valid");
   } else {
-    addInputEl.classList.remove("valid");
-    addInputEl.classList.add("invalid");
+    inputRef.classList.remove("invalid");
+    inputRef.classList.remove("valid");
   }
 }
+
+inputRef.addEventListener("blur", onInputRefChange);
